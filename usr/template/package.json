@@ -5,6 +5,7 @@
   "private": true,
   "main": "start.js",
   "scripts": {
+    "prestart": "npm install --production",
     "start": "node start.js"
   },
   "license": "ISC",
