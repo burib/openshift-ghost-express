@@ -1,0 +1,18 @@
+#!/bin/bash 
+
+echo "Creating persistent Ghost data directory"
+if [ ! -d "$OPENSHIFT_DATA_DIR/ghost_content/data" ]; then
+	mkdir -p $OPENSHIFT_DATA_DIR/ghost_content/data
+fi
+echo "Creating persistent Ghost images directory"
+if [ ! -d "$OPENSHIFT_DATA_DIR/ghost_content/images" ]; then
+	mkdir -p $OPENSHIFT_DATA_DIR/ghost_content/images
+fi
+echo "Symlinking data directory"
+rm -rf $OPENSHIFT_REPO_DIR/ghost_content/data
+ln -sf $OPENSHIFT_DATA_DIR/ghost_content/data $OPENSHIFT_REPO_DIR/ghost_content/data
+echo "Symlinking images directory"
+rm -rf $OPENSHIFT_REPO_DIR/ghost_content/images
+ln -sf $OPENSHIFT_DATA_DIR/ghost_content/images $OPENSHIFT_REPO_DIR/ghost_content/images
+
+

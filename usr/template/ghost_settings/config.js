@@ -3,8 +3,8 @@
 // Documentation can be found at http://support.ghost.org/config/
 
 var path = require('path'),
-  config;
-var config;
+    config;
+
 if (process.env.OPENSHIFT_MYSQL_DB_HOST != undefined) {
   config = {
     // ### Production
