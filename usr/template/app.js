@@ -1,4 +1,4 @@
-const http         = require('http'),
+var http         = require('http'),
       fs           = require('fs'),
       path         = require('path'),
       contentTypes = require('./utils/content-types'),
