@@ -1,0 +1,61 @@
+#!/bin/bash
+
+function update_nodejs {
+  if [ -n "$NODE_VERSION_URL" ]; then
+    local VERSION_URL=$NODE_VERSION_URL
+  elif [ -f "$OPENSHIFT_REPO_DIR/.openshift/NODE_VERSION_URL" ]; then
+    local VERSION_URL=$(cat $OPENSHIFT_REPO_DIR/.openshift/NODE_VERSION_URL)
+  else
+    local VERSION_URL="https://semver.io/node/stable"
+  fi
+
+  local LATEST="v$(curl --silent --max-time 5 ${VERSION_URL})"
+  local NODE_URL=https://nodejs.org/dist/${LATEST}/node-${LATEST}-linux-x64.tar.gz
+
+  if [ "$LATEST" = "v" ]; then
+    echo "Could not retrieve node version information from $VERSION_URL"
+    return 1
+  fi
+
+  # Update Node.js if necessary
+
+  which node >/dev/null 2>&1 # update if node is not avalible
+  if [ $? != 0 ] || [ $(node --version) != ${LATEST} ]; then
+    # Download
+    if ! curl -L -o ${OPENSHIFT_DATA_DIR}tmp.tgz $NODE_URL; then
+      return 1
+    fi
+
+    # Remove old files
+    rm -rf ${OPENSHIFT_DATA_DIR}.nodejs
+
+    # Copy binaries
+    mkdir ${OPENSHIFT_DATA_DIR}.nodejs
+    tar -xvzf ${OPENSHIFT_DATA_DIR}tmp.tgz --strip-components=1 -C ${OPENSHIFT_DATA_DIR}.nodejs
+
+    # Remove downloaded archive
+    rm ${OPENSHIFT_DATA_DIR}tmp.tgz
+
+    # Output result
+    echo "Node.js updated to $(node --version) with npm $(npm --version)."
+  fi
+
+  # Update global npm if necessary
+
+  if [ -z "$NPM_VERSION_URL" ]; then
+    if [ -f "$OPENSHIFT_REPO_DIR/.openshift/NPM_VERSION_URL" ]; then
+      local NPM_VERSION_URL=$(cat $OPENSHIFT_REPO_DIR/.openshift/NPM_VERSION_URL)
+    fi
+  fi
+
+  if [ -n "$NPM_VERSION_URL" ]; then
+    local NPM_WANTED_VERSION=$(curl --silent --max-time 5 ${NPM_VERSION_URL})
+  else
+    local NPM_WANTED_VERSION=$(npm view npm version)
+  fi
+
+  if [ $NPM_WANTED_VERSION != $(npm --version) ]; then
+    npm i -g npm@${NPM_WANTED_VERSION}
+    echo "Npm updated to $(npm --version)."
+  fi
+}
