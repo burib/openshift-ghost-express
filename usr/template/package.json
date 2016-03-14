@@ -1,11 +1,10 @@
 {
   "name": "openshift-ghost-express-template",
   "version": "1.0.1",
-  "description": "Custom Node.js cartridge for OpenShift - sample application",
+  "description": "Ghost blogengine with express on nodejs 4.x",
   "private": true,
   "main": "start.js",
   "scripts": {
-    "prestart": "npm rebuild",
     "start": "node start.js"
   },
   "license": "ISC",
