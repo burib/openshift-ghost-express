@@ -1,7 +1,7 @@
 {
   "name": "openshift-ghost-express-template",
   "version": "1.0.1",
-  "description": "Ghost blogengine with express on nodejs 4.x",
+  "description": "Ghost blog engine with express on nodejs 4.x",
   "private": true,
   "main": "start.js",
   "scripts": {
