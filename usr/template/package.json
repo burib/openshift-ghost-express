@@ -7,8 +7,9 @@
   "scripts": {
     "start": "node start.js"
   },
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "ghost": "^0.7"
+    "express": "4.x",
+    "ghost": "0.7"
   }
 }

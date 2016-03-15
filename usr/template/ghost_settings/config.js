@@ -11,7 +11,7 @@ if (process.env.OPENSHIFT_MYSQL_DB_HOST != undefined) {
     // When running Ghost in the wild, use the production environment
     // Configure your URL and mail settings here
     production: {
-      url: 'http://'+process.env.OPENSHIFT_APP_DNS,
+      url: 'http://'+process.env.OPENSHIFT_APP_DNS + '/blog',
       mail: {},
       database: {
         client: 'mysql',
@@ -41,7 +41,7 @@ if (process.env.OPENSHIFT_MYSQL_DB_HOST != undefined) {
     // When running Ghost in the wild, use the production environment
     // Configure your URL and mail settings here
     production: {
-      url: 'http://'+process.env.OPENSHIFT_APP_DNS,
+      url: 'http://'+process.env.OPENSHIFT_APP_DNS + '/blog',
       mail: {},
       database: {
         client: 'pg',
@@ -70,7 +70,7 @@ if (process.env.OPENSHIFT_MYSQL_DB_HOST != undefined) {
     // ### Development **(default)**
     development: {
       // The url to use when providing links to the site, E.g. in RSS and email.
-      url: 'http://my-ghost-blog.com',
+      url: 'http://127.0.0.1:2368/blog',
 
       // Example mail config
       // Visit http://support.ghost.org/mail for instructions
@@ -109,7 +109,7 @@ if (process.env.OPENSHIFT_MYSQL_DB_HOST != undefined) {
     // When running Ghost in the wild, use the production environment
     // Configure your URL and mail settings here
     production: {
-      url: 'http://'+process.env.OPENSHIFT_APP_DNS,
+      url: 'http://'+process.env.OPENSHIFT_APP_DNS + '/blog',
       mail: {},
       database: {
         client: 'sqlite3',
