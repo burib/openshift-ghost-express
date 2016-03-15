@@ -42,7 +42,7 @@ function start() {
     nohup ${START_COMMAND} |& /usr/bin/logshifter -tag nodejs &
     cd ${INIT_DIR}
     i=0
-    while ! is_running && [ $i -lt 60 ]; do
+    while ! is_running && [ $i -lt 120 ]; do
       sleep 1
       i=$(($i + 1))
     done
