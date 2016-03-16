@@ -14,25 +14,12 @@ function is_running() {
 }
 
 function pre-repo-archive() {
-  if [ -d ${OPENSHIFT_REPO_DIR}node_modules ]; then
-    rm -rf ${TMP}node_modules
-    cp -pRf ${OPENSHIFT_REPO_DIR}node_modules ${TMP}
-    rm -rf ${OPENSHIFT_REPO_DIR}node_modules
-  fi
+  client_result 'pre repo archive runnig'
 }
 
 function build() {
   update_nodejs
   local INIT_DIR=`pwd`
-  cd ${OPENSHIFT_REPO_DIR}
-  if [ -d ${TMP}node_modules ]; then
-    rm -rf ./node_modules
-    cp -pRf ${TMP}node_modules ./
-    rm -rf ${TMP}node_modules
-  fi
-  npm prune --production
-  npm i --production
-  cd ${INIT_DIR}
   client_result 'Node.js modules installed.'
 }
 
