@@ -14,9 +14,9 @@ function is_running() {
 }
 
 function pre-repo-archive() {
-  if [ -d ${OPENSHIFT_REPO_DIR}node_modules ]; then
-    mv -f ${OPENSHIFT_REPO_DIR}node_modules ${TMP}
-  fi
+  #!if [ -d ${OPENSHIFT_REPO_DIR}node_modules ]; then
+    #!mv -f ${OPENSHIFT_REPO_DIR}node_modules ${TMP}
+  #!fi
 }
 
 function build() {
