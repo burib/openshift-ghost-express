@@ -14,6 +14,7 @@ function is_running() {
 }
 
 function pre-repo-archive() {
+  client_result 'pre-repo-archive'
   #!if [ -d ${OPENSHIFT_REPO_DIR}node_modules ]; then
     #!mv -f ${OPENSHIFT_REPO_DIR}node_modules ${TMP}
   #!fi
@@ -23,13 +24,11 @@ function build() {
   update_nodejs
   local INIT_DIR=`pwd`
   cd ${OPENSHIFT_REPO_DIR}
-  if [ -d ${TMP}node_modules ]; then
-    mv -f ${TMP}node_modules ./
+  if [ -d node_modules ]; then
+    npm rebuild
+    client_result 'Node.js modules rebuilt.'
   fi
-  rm -rf node_modules
-  npm install --production
   cd ${INIT_DIR}
-  client_result 'Node.js modules installed.'
 }
 
 function start() {
@@ -62,7 +61,7 @@ function stop() {
     client_message 'Stopping Node.js application...'
     kill $(ps -ef | grep "$START_COMMAND" | grep -v grep | awk '{ print $2 }') > /dev/null 2>&1
     i=0
-    while is_running && [ $i -lt 60 ]; do
+    while is_running && [ $i -lt 120 ]; do
       sleep 1
       i=$(($i + 1))
     done
