@@ -5,9 +5,9 @@ License: Node.js License
 License-Url: https://raw.githubusercontent.com/nodejs/node/master/LICENSE
 Vendor: www.nodejs.org
 Website: http://www.nodejs.org/
-Display-Name: Node.js Auto-Updating
+Display-Name: ghost blog engine, express 4.x, express, npm latest
 Cartridge-Short-Name: NODEJS
-Cartridge-Version: '2.0.7'
+Cartridge-Version: '1.0.0'
 Cartridge-Vendor: burib
 Source-Url: https://github.com/burib/openshift-ghost-express.git
 Categories:
