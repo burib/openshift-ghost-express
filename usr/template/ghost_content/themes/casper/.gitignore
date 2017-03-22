@@ -1,4 +1,4 @@
-lib-cov
+b-cov
 *.seed
 *.log
 *.csv
@@ -13,3 +13,9 @@ results
 
 npm-debug.log
 node_modules
+
+.idea/*
+*.iml
+projectFilesBackup
+
+.DS_Store
