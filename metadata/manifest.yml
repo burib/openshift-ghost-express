@@ -1,6 +1,6 @@
 Name: nodejs
 Description: Ghost blog engine with express on nodejs 4.x
-Version: '4.4.0'
+Version: '5.7.2'
 License: Node.js License
 License-Url: https://raw.githubusercontent.com/nodejs/node/master/LICENSE
 Vendor: www.nodejs.org
