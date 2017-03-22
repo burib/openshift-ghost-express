@@ -15,14 +15,10 @@ ghost({
 
   app.get('/', function(req, res) {
     res.send('Hello node express app..');
-  });
-
-  app.get('/health', function(req, res) {
+  }).get('/health', function(req, res) {
     res.writeHead(200);
     res.end();
-  });
-
-  app.get('/stats', function(req, res) {
+  }).get('/stats', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Cache-Control', 'no-cache, no-store');
     res.end(JSON.stringify(sysInfo.getStats()));
