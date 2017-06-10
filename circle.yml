@@ -3,9 +3,12 @@ jobs:
   build:
     working_directory: ~/circle-test
     docker:
-      - image: circleci/node:8.1.0
+      - image: circleci/node:6.9.0
     steps:
       - checkout
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
       - run:
           name: list-versions
           command: 'npm --v && node -v'
