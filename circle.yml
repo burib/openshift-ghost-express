@@ -14,4 +14,14 @@ jobs:
           command: 'npm --v && node -v'
       - run:
           name: install-depencencies
-          command: cd ./usr/template/ && npm install && ls -la
+          command: cd ./usr/template/ && npm install && ls -la ./node_modules/
+      - deploy:
+          name: Maybe Deploy
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              - git config --global user.email "circle@example.com"
+              - git config --global user.name "CircleCI"
+              - git add . ./usr/template/node_modules/
+              - git commit -m 'update node_modules'
+              - git push -u origin release
+            fi
