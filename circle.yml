@@ -1,26 +1,29 @@
-version: 2
-jobs:
-  build:
-    working_directory: ~/circle-test
-    docker:
-      - image: circleci/node:6
-    steps:
-      - checkout
-      - run:
-          name: update-npm
-          command: 'npm install npm@latest'
-      - run:
-          name: list-versions
-          command: 'npm --v && node -v'
-      - run:
-          name: install-depencencies
-          command: cd ./usr/template/ && npm install && ls -la ./node_modules/
-      - deploy:
-          name: Maybe Deploy
-          command: '
-            git config --global user.email "circle@example.com"
-            git config --global user.name "CircleCI"
-            git add . ./usr/template/node_modules/
-            git commit -m "update node_modules"
-            git status
-            git push -u origin release'
+machine:
+  node:
+    version: 6.9.0
+  post:
+    - curl -o- -L https://yarnpkg.com/install.sh | bash
+    - npm install -g npm@latest
+    - node -v && yarn --version && npm --version
+
+dependencies:
+  override:
+    # UPDATING DEPENDENCIES
+    - sudo apt-get update
+    - sudo apt-get install lsb-base
+    # INSTALLING NPM DEPENDENCIES
+    - cd yarn install
+    - cat yarn.lock
+  cache_directories:
+    - ~/.cache/yarn
+
+deployment:
+  master-deploy:
+    branch: master
+    commands:
+      - git config --global user.email "circle@example.com"
+      - git config --global user.name "CircleCI"
+      - git add . ./usr/template/node_modules/
+      - git commit -m "update node_modules"
+      - git status
+      - git push -u origin release
