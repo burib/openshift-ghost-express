@@ -17,12 +17,12 @@ jobs:
           command: cd ./usr/template/ && npm install && ls -la ./node_modules/
       - deploy:
           name: Maybe Deploy
-          command: |
+          command: '
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               - git config --global user.email "circle@example.com"
               - git config --global user.name "CircleCI"
               - git add . ./usr/template/node_modules/
-              - git commit -m 'update node_modules'
+              - git commit -m "update node_modules"
               - git status
               - git push -u origin release
-            fi
+            fi'
