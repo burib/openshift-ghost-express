@@ -40,4 +40,4 @@ deployment:
       - git add ./usr/template/node_modules/. -f
       - git status
       - git commit -m "update node_modules"
-      - git push --set-upstream origin test-release
+      - git push --set-upstream origin test-release -f
