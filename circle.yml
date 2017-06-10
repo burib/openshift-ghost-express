@@ -11,9 +11,7 @@ dependencies:
     - sudo apt-get update
     - sudo apt-get install lsb-base
     # INSTALLING NPM DEPENDENCIES
-    - cd ./usr/template/
-    - npm install
-    - ls -la
+    - cd ./usr/template/ && npm install && ls -la
   cache_directories:
     - ~/.cache/yarn
 
@@ -41,5 +39,4 @@ deployment:
       - git add ./usr/template/node_modules/. -f
       - git status
       - git commit -m "update node_modules"
-      - git status
       - git push --set-upstream origin test-release
