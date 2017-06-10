@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/circle-test
     docker:
-      - image: circleci/node:6.9.0
+      - image: circleci/node:6.9.1
     steps:
       - checkout
       - run:
