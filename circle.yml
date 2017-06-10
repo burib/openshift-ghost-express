@@ -13,7 +13,6 @@ dependencies:
     # INSTALLING NPM DEPENDENCIES
     - cd ./usr/template/
     - npm install
-    - cat yarn.lock
     - ls -la
   cache_directories:
     - ~/.cache/yarn
