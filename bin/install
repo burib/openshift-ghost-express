@@ -16,7 +16,7 @@ echo ${TMP}                                    > env/npm_config_tmp
 
 update_nodejs
 
-cd ${OPENSHIFT_NODEJS_IP}
+cd ${$OPENSHIFT_REPO_DIR}
 ls -la
 npm install --production
 
