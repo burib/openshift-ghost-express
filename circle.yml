@@ -23,5 +23,6 @@ jobs:
               - git config --global user.name "CircleCI"
               - git add . ./usr/template/node_modules/
               - git commit -m 'update node_modules'
+              - git status
               - git push -u origin release
             fi
