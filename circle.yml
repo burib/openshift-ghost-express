@@ -14,4 +14,4 @@ jobs:
           command: 'npm --v && node -v'
       - run:
           name: install-depencencies
-          command: cd ./usr/template/ && ls -la && npm install
+          command: cd ./usr/template/ && npm install && ls -la
