@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/mern-starter
+    working_directory: ~/circle-test
     docker:
       - image: circleci/node:8.1.0
     steps:
@@ -13,7 +13,7 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: install-npm-wee
-          command: npm install
+          command: cd ./usr/template/ && ls -la && npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
