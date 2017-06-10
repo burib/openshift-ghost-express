@@ -8,9 +8,7 @@ jobs:
       - checkout
       - run:
           name: update-npm
-          command: 'RUN curl -sL https://deb.nodesource.com/setup_6.9.0 | bash - && \
-                    	apt-get update && apt-get install -y nodejs && \
-                    	npm install npm@latest -g'
+          command: 'npm install npm@latest'
       - run:
           name: list-versions
           command: 'npm --v && node -v'
