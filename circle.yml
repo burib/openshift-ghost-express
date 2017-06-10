@@ -11,7 +11,7 @@ dependencies:
     - sudo apt-get update
     - sudo apt-get install lsb-base
     # INSTALLING NPM DEPENDENCIES
-    - cd ./usr/template/ && npm install --production && ls -la
+    - cd ./usr/template/ && npm install --build-from-source=sqlite3 --target_arch=x64 --target_platform=linux --production && ls -la
   cache_directories:
     - ~/.cache/yarn
 
