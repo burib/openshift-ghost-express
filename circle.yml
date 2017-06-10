@@ -12,8 +12,10 @@ dependencies:
     - sudo apt-get update
     - sudo apt-get install lsb-base
     # INSTALLING NPM DEPENDENCIES
-    - cd ./usr/template/ && yarn install
+    - cd ./usr/template/
+    - yarn install
     - cat yarn.lock
+    - ls -la
   cache_directories:
     - ~/.cache/yarn
 
