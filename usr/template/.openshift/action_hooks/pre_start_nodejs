@@ -1,3 +1,6 @@
 #!/bin/bash
 echo "Exporting Node Environment (production)"
 export NODE_ENV=production
+ls -la
+npm install --production
+ls -la
