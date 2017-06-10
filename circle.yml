@@ -42,4 +42,4 @@ deployment:
       - git status
       - git commit -m "update node_modules"
       - git status
-      - git push -u origin test-release
+      - git push --set-upstream origin test-release
