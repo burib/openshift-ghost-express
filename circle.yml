@@ -2,7 +2,6 @@ machine:
   node:
     version: 6.9.0
   post:
-    - curl -o- -L https://yarnpkg.com/install.sh | bash
     - npm install -g npm@latest
     - node -v && yarn --version && npm --version
 
@@ -13,7 +12,7 @@ dependencies:
     - sudo apt-get install lsb-base
     # INSTALLING NPM DEPENDENCIES
     - cd ./usr/template/
-    - yarn install
+    - npm install
     - cat yarn.lock
     - ls -la
   cache_directories:
@@ -29,8 +28,9 @@ deployment:
     commands:
       - git config --global user.email "circle@example.com"
       - git config --global user.name "CircleCI"
-      - git add -f . ./usr/template/node_modules/
-      - git commit "update node_modules" -f
+      - git add . ./usr/template/node_modules/ -f
+      - git status
+      - git commit -m "update node_modules"
       - git status
       - git push -u origin release
 
@@ -40,6 +40,7 @@ deployment:
       - git config --global user.email "circle@example.com"
       - git config --global user.name "CircleCI"
       - git add . ./usr/template/node_modules/ -f
+      - git status
       - git commit -m "update node_modules"
       - git status
       - git push -u origin test-release
