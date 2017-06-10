@@ -36,6 +36,7 @@ deployment:
     commands:
       - git config --global user.email "circle@example.com"
       - git config --global user.name "CircleCI"
+      - git checkout -b test-release
       - git add ./usr/template/node_modules/. -f
       - git status
       - git commit -m "update node_modules"
