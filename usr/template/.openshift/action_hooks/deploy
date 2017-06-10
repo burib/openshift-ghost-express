@@ -1,5 +1,6 @@
 #!/bin/bash
 
+npm install --production
 echo "Creating persistent Ghost data directory"
 if [ ! -d "$OPENSHIFT_DATA_DIR/ghost_content/data" ]; then
 	mkdir -p $OPENSHIFT_DATA_DIR/ghost_content/data
