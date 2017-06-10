@@ -16,8 +16,10 @@ echo ${TMP}                                    > env/npm_config_tmp
 
 update_nodejs
 
-cd ${$OPENSHIFT_REPO_DIR}
+cd $OPENSHIFT_REPO_DIR
 ls -la
 npm install --production
 
+client_result "$(OPENSHIFT_REPO_DIR)"
+client_result "$(OPENSHIFT_REPO_DIR)"
 client_result "Node.js $(node --version) and NPM $(npm --version) installed."
