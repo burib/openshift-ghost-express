@@ -2,7 +2,7 @@ machine:
   node:
     version: 6.9.0
   post:
-    - npm install -g npm@latest
+    #- npm install -g npm@latest
     - node -v && yarn --version && npm --version
 
 dependencies:
