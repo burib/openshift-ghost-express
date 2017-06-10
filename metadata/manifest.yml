@@ -1,5 +1,5 @@
 Name: nodejs
-Description: Ghost blog engine with express on nodejs 6.9.5
+Description: Ghost blog engine with express on nodejs
 Version: '6.9.5'
 License: Node.js License
 License-Url: https://raw.githubusercontent.com/nodejs/node/master/LICENSE
@@ -7,7 +7,7 @@ Vendor: www.nodejs.org
 Website: http://www.nodejs.org/
 Display-Name: ghost blog engine, express 4.x, express, npm latest
 Cartridge-Short-Name: NODEJS
-Cartridge-Version: '1.0.0'
+Cartridge-Version: '1.0.1'
 Cartridge-Vendor: burib
 Source-Url: https://github.com/burib/openshift-ghost-express.git
 Categories:

@@ -4,6 +4,7 @@ source $OPENSHIFT_CARTRIDGE_SDK_BASH
 source $HOME/nodejs/lib/util
 
 START_COMMAND=$(node -e "var p = require('$OPENSHIFT_REPO_DIR/package.json'); console.log(p.scripts.start);")
+STOP_COMMAND=$(node -e "var p = require('$OPENSHIFT_REPO_DIR/package.json'); console.log(p.scripts.stop || '');")
 
 function is_running() {
   if [ ! -z "$(ps -ef | grep "$START_COMMAND" | grep -v grep)" ]; then
@@ -14,12 +15,24 @@ function is_running() {
 }
 
 function pre-repo-archive() {
-  client_result 'pre repo archive runnig'
+  if [ -d ${OPENSHIFT_REPO_DIR}node_modules ]; then
+    rm -rf ${OPENSHIFT_DATA_DIR}node_modules
+    mv -f ${OPENSHIFT_REPO_DIR}node_modules ${OPENSHIFT_DATA_DIR}
+  fi
 }
 
 function build() {
   update_nodejs
   local INIT_DIR=`pwd`
+  cd ${OPENSHIFT_REPO_DIR}
+  if [ -d ${OPENSHIFT_DATA_DIR}node_modules ]; then
+    rm -rf ./node_modules
+    mv -f ${OPENSHIFT_DATA_DIR}node_modules ./
+    rm -rf ${OPENSHIFT_DATA_DIR}node_modules
+  fi
+  npm prune --production
+  npm i --production
+  cd ${INIT_DIR}
   client_result 'Node.js modules installed.'
 }
 
@@ -33,7 +46,7 @@ function start() {
     nohup ${START_COMMAND} |& /usr/bin/logshifter -tag nodejs &
     cd ${INIT_DIR}
     i=0
-    while ! is_running && [ $i -lt 120 ]; do
+    while ! is_running && [ $i -lt 60 ]; do
       sleep 1
       i=$(($i + 1))
     done
@@ -51,9 +64,16 @@ function stop() {
     client_result 'Application is already stopped.'
   else
     client_message 'Stopping Node.js application...'
-    kill $(ps -ef | grep "$START_COMMAND" | grep -v grep | awk '{ print $2 }') > /dev/null 2>&1
+    if [[ ! -z "$STOP_COMMAND"  ]]; then
+        local INIT_DIR=`pwd`
+        cd ${OPENSHIFT_REPO_DIR}
+        $STOP_COMMAND > /dev/null 2>&1
+        cd ${INIT_DIR}
+    else
+        kill $(ps -ef | grep "$START_COMMAND" | grep -v grep | awk '{ print $2  }') > /dev/null 2>&1
+    fi
     i=0
-    while is_running && [ $i -lt 120 ]; do
+    while is_running && [ $i -lt 60 ]; do
       sleep 1
       i=$(($i + 1))
     done
@@ -83,7 +103,7 @@ function tidy() {
   shopt -s dotglob
   client_message "Emptying logs in ${OPENSHIFT_LOG_DIR}..."
   rm -rf ${OPENSHIFT_LOG_DIR}/*.log*
-  client_message 'Done.'
+  client_message 'Done tidying up Node.js cartridge.'
 }
 
 case ${1} in
