@@ -29,8 +29,8 @@ deployment:
     commands:
       - git config --global user.email "circle@example.com"
       - git config --global user.name "CircleCI"
-      - git add . ./usr/template/node_modules/
-      - git commit -m "update node_modules"
+      - git add -f . ./usr/template/node_modules/
+      - git commit "update node_modules" -f
       - git status
       - git push -u origin release
 
@@ -39,7 +39,7 @@ deployment:
     commands:
       - git config --global user.email "circle@example.com"
       - git config --global user.name "CircleCI"
-      - git add . ./usr/template/node_modules/
+      - git add . ./usr/template/node_modules/ -f
       - git commit -m "update node_modules"
       - git status
       - git push -u origin test-release
