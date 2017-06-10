@@ -1,0 +1,43 @@
+machine:
+  node:
+    version: 6.9.0
+  post:
+    #- npm install -g npm@latest
+    - node -v && yarn --version && npm --version
+
+dependencies:
+  override:
+    # UPDATING DEPENDENCIES
+    - sudo apt-get update
+    - sudo apt-get install lsb-base
+    # INSTALLING NPM DEPENDENCIES
+    - cd ./usr/template/ && npm install --target_arch=x64 --target_platform=linux --production && ls -la
+  cache_directories:
+    - ~/.cache/yarn
+
+test:
+  override:
+    - echo "tests passed"
+
+deployment:
+  master-deploy:
+    branch: master
+    commands:
+      - git config --global user.email "circle@example.com"
+      - git config --global user.name "CircleCI"
+      - git add . ./usr/template/node_modules/ -f
+      - git status
+      - git commit -m "update node_modules"
+      - git status
+      - git push -u origin release
+
+  branch-deploy:
+    branch: /.*/
+    commands:
+      - git config --global user.email "circle@example.com"
+      - git config --global user.name "CircleCI"
+      - git checkout -b test-release
+      - git add ./usr/template/node_modules/. -f
+      - git status
+      - git commit -m "update node_modules"
+      - git push --set-upstream origin test-release -f
